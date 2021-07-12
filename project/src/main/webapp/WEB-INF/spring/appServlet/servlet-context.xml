@@ -36,8 +36,6 @@
 	</beans:bean>
 	
 	<!-- 인터셉터 -->
-	<beans:bean class="com.kh.sample01.interceptor.SampleInterceptor" id="sampleInterceptor"></beans:bean>
-	<beans:bean class="com.kh.sample01.interceptor.AuthInterceptor" id="authInterceptor"></beans:bean>
 	
 	<interceptors>
 		<interceptor>
