@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="com.kh.sample01.message">
+ 	<insert id="insertMessage">
+ 		insert into tbl_message (msg_no, msg_content, msg_sender, msg_receiver)
+ 		values (seq_message_no.nextval, #{msg_content}, #{msg_sender}, #{msg_receiver})
+ 	</insert>
+ 	
+ 	<select id="notReadCount" resultType="int">
+ 		select count(*) from tbl_message
+		where msg_receiver = #{msg_receiver}
+		and msg_opendate is null
+ 	</select>
+ 	
+ 	<select id="messageListNotRead" resultType="MessageVo">
+ 		select * from tbl_message
+		where msg_receiver = #{msg_receiver}
+		and msg_opendate is null
+		order by msg_no desc
+ 	</select>
+ 	
+ 	<select id="messageListReceive" resultType="MessageVo">
+ 		select * from tbl_message
+		where msg_receiver = #{msg_receiver}
+		order by msg_no desc
+ 	</select>
+ 	
+ 	<update id="updateOpenDate">
+ 		update tbl_message set
+ 			msg_opendate = sysdate
+ 		where msg_no = #{msg_no}
+ 	</update>
+ 	
+ 	<select id="readMessage" resultType="MessageVo">
+ 		select * from tbl_message
+ 		where msg_no = #{msg_no}
+ 	</select>
+ 	
+ 	<select id="getOpendate" resultType="java.sql.Timestamp">
+ 		select msg_opendate from tbl_message
+ 		where msg_no = #{msg_no}
+ 	</select>
+ 	
+ 	<delete id="deleteMessage">
+ 		delete from tbl_message
+ 		where msg_no = #{msg_no}
+ 	</delete>
+ </mapper>
